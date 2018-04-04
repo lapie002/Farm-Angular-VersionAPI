@@ -1,14 +1,22 @@
 {
-  "name": "ferme",
+  "name": "rxp",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod",
+    "local": "ng serve -dev --env=local",
+    "lint": "tslint \"src/**/*.ts\"",
+    "tslint-autofix": "tslint --fix \"./src/app/**/*.ts\" -t verbose",
     "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "pree2e": "webdriver-manager update",
+    "e2e": "protractor",
+    "build": "ng build -prod --aot=false --base-href /rxp-central-ihm/",
+    "build-dev": "ng build -dev --environment=prod --aot=false --base-href /rxp-central-ihm/",
+    "docs": "npm run typedoc -- --options typedoc.json --exclude '**/*.spec.ts' ./src/",
+    "typedoc": "typedoc",
+    "compodoc": "./node_modules/.bin/compodoc -p src/tsconfig.json --disableGraph",
+    "prettier": "prettier --print-width 120 --single-quote --write \"./src/app/**/*.{ts,css,html}\"",
+    "lint-prettify": "npm run tslint-autofix || npm run prettier"
   },
   "private": true,
   "dependencies": {
@@ -21,8 +29,26 @@
     "@angular/platform-browser": "^5.2.0",
     "@angular/platform-browser-dynamic": "^5.2.0",
     "@angular/router": "^5.2.0",
+    "angular2-grid": "2.1.0",
+    "angular2-jwt": "0.2.3",
+    "angular2-uuid": "1.1.1",
+    "bootstrap": "3.3.7",
+    "chart.js": "2.7.1",
     "core-js": "^2.4.1",
+    "font-awesome": "4.7.0",
+    "fullcalendar": "3.5.1",
+    "intl": "1.2.5",
+    "jquery": "3.2.1",
+    "lodash": "4.17.5",
+    "moment": "2.18.1",
+    "ng2-translate": "5.0.0",
+    "ngx-clipboard": "10.0.0",
+    "prettier": "^1.11.1",
+    "primeng": "5.2.3",
+    "quill": "1.1.8",
     "rxjs": "^5.5.6",
+    "web-animations-js": "2.3.1",
+    "webpack": "3.10.0",
     "zone.js": "^0.8.19"
   },
   "devDependencies": {
@@ -43,6 +69,7 @@
     "protractor": "~5.1.2",
     "ts-node": "~4.1.0",
     "tslint": "~5.9.1",
-    "typescript": "~2.5.3"
+    "typescript": "~2.5.3",
+    "yamljs": "0.3.0"
   }
 }
