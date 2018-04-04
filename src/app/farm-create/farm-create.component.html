@@ -1,3 +1,14 @@
-<p>
-  farm-create works!
-</p>
+<div class="row">
+  <h3 class="first">Ferme</h3>
+  <input id="input" type="text" size="30" pInputText [(ngModel)]="name">
+  <input id="input" type="text" size="30" pInputText [(ngModel)]="address">
+  <button pButton type="button" (click)="toggleDisabledFarm()" label="Ok" class="ui-button-secondary"></button>
+</div>
+<div class="row" *ngIf="!farmDisabled">
+  <h3 class="first">Fermier</h3>
+  <input id="input" type="text" size="30" pInputText [(ngModel)]="farmername">
+  <p-spinner size="9" [(ngModel)]="farmerage" [min]="0" [max]="100"></p-spinner>
+  <p-radioButton name="gendergroup" value="male" label="Male" [(ngModel)]="farmergender"></p-radioButton>
+  <p-radioButton name="gendergroup" value="female" label="Female" [(ngModel)]="farmergender"></p-radioButton>
+  <button pButton type="button" (click)="onValidateFarm(); toggleDisabledFarmer()" label="Ok" class="ui-button-secondary"></button>
+</div>
