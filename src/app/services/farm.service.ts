@@ -7,7 +7,6 @@ import { FARMS } from '../mock-farms';
 @Injectable()
 export class FarmService {
 
-  //farms: Farm[] = [];
   private farms: Array<Farm> = FARMS;
 
   constructor(){ }

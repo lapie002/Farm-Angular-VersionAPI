@@ -17,14 +17,14 @@ export class FarmCreateComponent implements OnInit {
 
   private farms: Array<Farm> = [];
 
-  // ferme
+  // formulaire ferme
   name: string;
   address: string;
 
   farmDisabled: boolean = true;
 
 
-  // Fermier
+  // formulaire Fermier
   farmername: string;
   farmerage: number = 35;
   farmergender: string;
