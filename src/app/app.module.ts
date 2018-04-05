@@ -8,8 +8,14 @@ import { RouterModule, Routes } from '@angular/router';
 import {InputTextModule} from 'primeng/inputtext';
 import {ButtonModule} from 'primeng/button';
 import {SpinnerModule} from 'primeng/spinner';
-import {DropdownModule} from 'primeng/dropdown';
 import {RadioButtonModule} from 'primeng/radiobutton';
+
+import {DropdownModule} from 'primeng/dropdown';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+//import {SelectItem} from 'primeng/api';
+
+//import { Dropdown } from 'primeng/components/dropdown/dropdown';
+//import { SelectItem } from 'primeng/components/api/selectitem';
 
 
 /* les components du projet */
@@ -42,8 +48,9 @@ const appRoutes: Routes = [
     InputTextModule,
     ButtonModule,
     SpinnerModule,
-    DropdownModule,
     RadioButtonModule,
+    DropdownModule,
+    BrowserAnimationsModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [
