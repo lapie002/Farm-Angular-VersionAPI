@@ -1,5 +1,6 @@
 import { Component, OnInit, Input  } from '@angular/core';
-import {Validators,FormControl,FormGroup,FormBuilder} from '@angular/forms';
+import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { FarmService } from '../services/farm.service';
 
 import { Farm } from '../models/Farm.model';
 import { Farmer } from '../models/Farmer.model';
@@ -14,27 +15,29 @@ import { Router } from '@angular/router';
 })
 export class FarmCreateComponent implements OnInit {
 
+  private farms: Array<Farm> = [];
+
   // ferme
-  @Input() name: string;
-  @Input() address: string;
+  name: string;
+  address: string;
 
   farmDisabled: boolean = true;
-  farms = FARMS;
+
 
   // Fermier
-  @Input() farmername: string;
-  @Input() farmerage: number = 35;
-  @Input() farmergender: string;
+  farmername: string;
+  farmerage: number = 35;
+  farmergender: string;
   farmerDisabled: boolean = true;
 
-
-  constructor(private formBuilder: FormBuilder,private router: Router){ }
+  //private formBuilder: FormBuilder,
+  constructor(private farmService: FarmService, private router: Router){ }
 
   ngOnInit(){
 
   }
 
-  onValidateFarm(){
+  public onValidateFarm(){
 
     const farmName = this.name;
     const farmAddress = this.address;
@@ -45,9 +48,11 @@ export class FarmCreateComponent implements OnInit {
 
     let newFarmer = new Farmer(farmerName, farmerAge, farmerGender);
 
-    let newFarm = new Farm(farmName, farmAddress, newFarmer);
+    let newFarm = new Farm(farmName, farmAddress);
+    newFarm.farmer = newFarmer;
 
-    this.farms.push(newFarm);
+    //this.farms.push(newFarm);
+    this.farmService.saveFarm(newFarm);
 
   }
 
@@ -55,16 +60,20 @@ export class FarmCreateComponent implements OnInit {
 
        this.farmDisabled = !this.farmDisabled;
 
-
    }
 
    toggleDisabledFarmer(){
      this.farmerDisabled = !this.farmerDisabled;
 
-     console.log(this.disabled);
+     console.log(this.farmDisabled);
      console.log(this.name);
      console.log(this.address);
+
+     //this.farms = this.farmService.emitFarms();
+     //console.log(this.farms);
+     this.farms = this.farmService.emitFarms();
      console.log(this.farms);
+
    }
 
 

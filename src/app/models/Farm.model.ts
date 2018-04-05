@@ -1,5 +1,9 @@
+import { Farmer } from './Farmer.model';
+
 export class Farm{
 
-  constructor(public name, public address, public farmer){}
+  farmer: Farmer;
+
+  constructor(public name, public address){}
 
 }
