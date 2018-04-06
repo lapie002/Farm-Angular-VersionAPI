@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
+
 import { Farm } from '../models/Farm.model';
 import { Farmer } from '../models/Farmer.model';
 import { Animal } from '../models/Animal.model';
@@ -8,6 +9,7 @@ import { Food } from '../models/Food.model';
 
 import { FARMS } from '../mock-farms';
 import { ANIMAUX } from '../mock-animals';
+
 
 
 @Injectable()
@@ -41,7 +43,7 @@ export class FarmService {
    * @return void
    */
   public addAnimal(animal: Animal){
-    this.animaux .push(animal);
+    this.animaux.push(animal);
   }
 
 

@@ -12,10 +12,8 @@ import {RadioButtonModule} from 'primeng/radiobutton';
 
 import {DropdownModule} from 'primeng/dropdown';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-//import {SelectItem} from 'primeng/api';
-
-//import { Dropdown } from 'primeng/components/dropdown/dropdown';
-//import { SelectItem } from 'primeng/components/api/selectitem';
+import {TreeTableModule} from 'primeng/treetable';
+import {TableModule} from 'primeng/table';
 
 
 /* les components du projet */
@@ -51,6 +49,8 @@ const appRoutes: Routes = [
     RadioButtonModule,
     DropdownModule,
     BrowserAnimationsModule,
+    TreeTableModule,
+    TableModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [

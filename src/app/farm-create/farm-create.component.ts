@@ -15,7 +15,10 @@ import { Food } from '../models/Food.model';
 import { FARMS } from '../mock-farms';
 import { ANIMAUX } from '../mock-animals';
 
+
+
 import { Router } from '@angular/router';
+import {TreeNode} from 'primeng/api';
 
 
 @Component({
@@ -28,7 +31,6 @@ export class FarmCreateComponent implements OnInit {
   farms: Array<Farm>       = [];
   animals: Array<Animal>   = [];
   foodPackage: Array<Food> = [];
-
 
   // formulaire ferme
   name: string;
@@ -48,6 +50,9 @@ export class FarmCreateComponent implements OnInit {
     // Tableau Animaldescription Pig Chicken Cow...
     animaltype: Animaldescription[];
 
+    animalAdded: boolean = false;
+
+    //tooggle disable button add animal 
     animalDisabled: boolean = true;
 
   // Tableau foodType Carrots Rocks Grain...
@@ -74,7 +79,7 @@ export class FarmCreateComponent implements OnInit {
       {id: 3, description: 'Grain', calories: 40}
     ];
 
-
+    this.animals = this.farmService.emitAnimaux();
    }
 
   ngOnInit(){
@@ -106,9 +111,14 @@ export class FarmCreateComponent implements OnInit {
     newAnimal.foodpackage = this.foodPackage;
 
     this.farmService.addAnimal(newAnimal);
+    this.animals = this.farmService.emitAnimaux();
 
     //ensuite on vide le food package
     this.foodPackage = [];
+
+    this.animalAdded = true;
+    this.animalDisabled = !this.animalDisabled;
+    
 
   }
 
@@ -125,10 +135,23 @@ export class FarmCreateComponent implements OnInit {
     let newFarmer = new Farmer(farmerName, farmerAge, farmerGender);
 
     let newFarm = new Farm(farmName, farmAddress);
+
     newFarm.farmer = newFarmer;
+
+    newFarm.animalfarm = this.animals;
 
     this.farmService.saveFarm(newFarm);
 
+    this.farms = this.farmService.emitFarms();
+
+  }
+
+  onEmptyFarms(){
+    this.farms = [];
+  }
+
+  onEmptyAnimals(){
+    this.animals = [];
   }
 
   toggleDisabledFarm() {
@@ -139,28 +162,29 @@ export class FarmCreateComponent implements OnInit {
 
    toggleDisabledFarmer(){
 
-       this.farmerDisabled = !this.farmerDisabled;
+    this.farmerDisabled = !this.farmerDisabled;
+    this.animalDisabled = true;
 
    }
 
-   toggleDisabledAnimal(){
+   toggleDisabledAnimal() {
 
-    this.animalDisabled = !this.animalDisabled;
-    this.farms = this.farmService.emitFarms();
-    this.animals = this.farmService.emitAnimaux();
-    
-    /**test */
-    //console.log(this.farmDisabled);
-    //console.log(this.name);
-    //console.log(this.address);
-    //console.log(this.farms);
-    //console.log(this.animals);
+    this.animalDisabled = true;
 
    }
 
    toggleDisabledFood(){
 
-    console.log(this.foodPackage);
+     console.log(this.foodPackage);
+     this.animalDisabled = false;
+   }
+
+   methodeTestToDisplayResult(){
+
+      /**test */
+      console.log(this.farmDisabled);
+      console.log(this.farms);
+      console.log(this.animals);
 
    }
 
