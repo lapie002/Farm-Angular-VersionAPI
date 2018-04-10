@@ -82,9 +82,7 @@ export class FarmCreateComponent implements OnInit {
 
    }
 
-  ngOnInit(){
-
-  }
+  ngOnInit(){}
 
   public onAddAnimalFoodPackage(){
      
@@ -117,9 +115,17 @@ export class FarmCreateComponent implements OnInit {
     this.foodPackage = [];
 
     this.animalAdded = true;
-    this.animalDisabled = !this.animalDisabled;
-    
 
+    this.animalDisabled = !this.animalDisabled;
+
+    // on remet les inputs de l animal a vide.
+    this.animalname = '';
+    //this.selectedDescription = "";
+
+    //this.selectedFood = "";
+    this.foodQte = 0;
+
+    
   }
 
   public onValidateFarm(){
@@ -169,9 +175,7 @@ export class FarmCreateComponent implements OnInit {
     this.farmergender = '';
 
     this.animalname = '';
-    //this.selectedDescription.description = "select animal";
-
-    //this.selectedFood.description = "type";
+    
     this.foodQte = 0;
 
     this.animalAdded = false;
@@ -205,7 +209,7 @@ export class FarmCreateComponent implements OnInit {
 
    toggleDisabledAnimal() {
 
-    this.animalDisabled = true;
+    this.animalDisabled = false;
 
    }
 

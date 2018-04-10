@@ -21,7 +21,7 @@
   <p-dropdown [options]="animaltype" [(ngModel)]="selectedDescription" optionLabel="description" placeholder="select animal"></p-dropdown>
   <button pButton type="button" (click)="toggleDisabledAnimal(); onAddAnimal()" [disabled]="animalDisabled" label="Add Animal" class="ui-button-secondary"></button>
   
-  <h3 class="first">Food for</h3>
+  <h3 class="first">Food for {{ animalname }}</h3>
   <p-dropdown [options]="foodtype" [(ngModel)]="selectedFood" optionLabel="description" placeholder="type"></p-dropdown>
   <p-spinner size="10" [(ngModel)]="foodQte" [min]="0" [max]="10" placeholder="quantity"></p-spinner>
   <button pButton type="button" (click)="onAddAnimalFoodPackage(); toggleDisabledFood()" label="Add Food" class="ui-button-secondary"></button>
