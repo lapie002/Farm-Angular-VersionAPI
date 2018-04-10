@@ -1,3 +1,73 @@
-<p>
-  farm-search works!
-</p>
+<div class="container mouvup">
+    <h3 class="first">Search</h3>
+    <div class="row mouvup">
+      <p-radioButton name="farmgroup" value="address" label="Farm Address" [(ngModel)]="farmradiosearch"></p-radioButton>
+      <p-radioButton name="farmgroup" value="age" label="Farmer Age" [(ngModel)]="farmradiosearch"></p-radioButton>
+    </div>
+    <div class="row mouvup" *ngIf="farmradiosearch === 'address' ">
+      <input id="input" type="text" size="30" pInputText [(ngModel)]="farmsearchbyaddress">
+      <button pButton type="button" (click)="toggleDisplayFarmByAddress()" label="Search By Address" class="ui-button-secondary"></button>
+    </div>
+    <div class="row mouvup" *ngIf="farmradiosearch === 'age' ">
+        <input id="input" type="number" size="30" pInputText [(ngModel)]="farmsearchbyage">
+        <button pButton type="button" (click)="toggleDisplayFarmByAge()" label="Search By Age" class="ui-button-secondary"></button>
+    </div>
+</div>
+
+
+<div class="row" *ngIf="farmSearched">
+    <h3>Farm Information</h3>
+    <div class="list-group col-md-6">
+        <a href="#" class="list-group-item">
+          <h6 class="list-group-item-heading">Farm Information</h6>
+          <p class="list-group-item-text">farm's name : {{ farm.name }}</p>
+          <p class="list-group-item-text">farm's address : {{ farm.address }}</p>
+        </a>
+    </div>
+
+    <div class="list-group col-md-6">
+        <a href="#" class="list-group-item">
+          <p class="list-group-item-text">farmer's name : {{ farm.farmer.name }}</p>
+          <p class="list-group-item-text">farmer's gender : {{ farm.farmer.gender }}</p>
+          <p class="list-group-item-text">farmer's age : {{ farm.farmer.age }}</p>
+        </a>
+    </div>
+</div>
+
+
+
+<table class="table" *ngIf="farmSearched">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Type</th>
+        <th scope="col">Calories</th>
+        <th scope="col">food stack</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let animal of farm.animalfarm">
+          <td>{{ animal.name }}</td>
+          <td>{{ animal.type.description }}</td>
+          <td>{{ animal.calories }}</td>
+          <td>
+              <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">food type</th>
+                      <th scope="col">food quantity</th>
+                      <th scope="col">food calories</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let food of animal.foodpackage">  
+                      <td>{{food.type.description}}</td>
+                      <td>{{food.quantity}}</td>
+                      <td>{{food.type.calories}}</td>
+                    </tr>
+                  </tbody>
+              </table>
+          </td>
+      </tr>
+    </tbody>
+</table>

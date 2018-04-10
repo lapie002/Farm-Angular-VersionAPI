@@ -1,6 +1,7 @@
 import { Component, OnInit, Input  } from '@angular/core';
 import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { FarmService } from '../services/farm.service';
+import { Subscription } from 'rxjs/Subscription';
 
 import {SelectItem} from 'primeng/api';
 
@@ -10,11 +11,6 @@ import { Animaldescription } from '../models/Animaldescription.model';
 import { Animal } from '../models/Animal.model';
 import { Fooddescription } from '../models/Fooddescription.model';
 import { Food } from '../models/Food.model';
-
-
-import { FARMS } from '../mock-farms';
-import { ANIMAUX } from '../mock-animals';
-
 
 
 import { Router } from '@angular/router';
@@ -28,31 +24,33 @@ import {TreeNode} from 'primeng/api';
 })
 export class FarmCreateComponent implements OnInit {
 
-  farms: Array<Farm>       = [];
+  farms: Farm[] = [];
+  farmsSubscription: Subscription;
+
   animals: Array<Animal>   = [];
   foodPackage: Array<Food> = [];
 
   // formulaire ferme
-  name: string;
-  address: string;
-  farmDisabled: boolean = true;
+    name: string;
+    address: string;
+    farmDisabled: boolean = true;
 
   // formulaire Fermier
-  farmername: string;
-  farmerage: number = 35;
-  farmergender: string;
-  farmerDisabled: boolean = true;
+    farmername: string;
+    farmerage: number = 35;
+    farmergender: string;
+    farmerDisabled: boolean = true;
 
   // formulaire Animal
     animalname: string;
     selectedDescription: Animaldescription;
 
-    // Tableau Animaldescription Pig Chicken Cow...
+  // Tableau Animaldescription Pig Chicken Cow...
     animaltype: Animaldescription[];
 
     animalAdded: boolean = false;
 
-    //tooggle disable button add animal 
+  //tooggle disable button add animal 
     animalDisabled: boolean = true;
 
   // Tableau foodType Carrots Rocks Grain...
@@ -79,7 +77,9 @@ export class FarmCreateComponent implements OnInit {
       {id: 3, description: 'Grain', calories: 40}
     ];
 
-    this.animals = this.farmService.emitAnimaux();
+    //this.animals = this.farmService.emitAnimaux();
+    this.animals = [];
+
    }
 
   ngOnInit(){
@@ -140,9 +140,45 @@ export class FarmCreateComponent implements OnInit {
 
     newFarm.animalfarm = this.animals;
 
-    this.farmService.saveFarm(newFarm);
+    this.farmService.createNewFarm(newFarm);
 
-    this.farms = this.farmService.emitFarms();
+    /* utile pour les test : console.log des element des tableaux animaux et fermes.
+    this.farmsSubscription = this.farmService.farmsSubject.subscribe(
+      (farms: Farm[])=> { this.farms = farms;}
+    );
+
+    this.farmService.getFarms();
+    this.farmService.emitFarms();
+    */
+    //this.onEmptyAnimals();
+    //this.onEmptyFarms();
+
+    this.animals = [];
+
+    // remetre les variables a true. 
+    this.farmDisabled = true;
+    this.farmerDisabled = true;
+    this.animalDisabled = true;
+
+    //remettre les variable des inputs a vide
+    this.name = '';
+    this.address = '';
+
+    this.farmername = '';
+    this.farmerage = 35;
+    this.farmergender = '';
+
+    this.animalname = '';
+    //this.selectedDescription.description = "select animal";
+
+    //this.selectedFood.description = "type";
+    this.foodQte = 0;
+
+    this.animalAdded = false;
+    
+
+    this.router.navigate(['/farm']);
+
 
   }
 
@@ -182,12 +218,20 @@ export class FarmCreateComponent implements OnInit {
    methodeTestToDisplayResult(){
 
       /**test */
-      console.log(this.farmDisabled);
+      console.log("La ferme");
       console.log(this.farms);
+      console.log("Les animaux");
       console.log(this.animals);
 
    }
 
+   methodeTestDataMockPersist(){
+
+    //this.farms = this.farmService.emitFarms();
+    console.log(this.farms);
+    console.log(this.animals);
+
+   }
 
 
 

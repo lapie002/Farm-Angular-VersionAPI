@@ -3,8 +3,11 @@
   <input id="input" type="text" size="30" pInputText [(ngModel)]="name" placeholder="Farm's name">
   <input id="input" type="text" size="30" pInputText [(ngModel)]="address" placeholder="Farm's address">
   <button pButton type="button" (click)="toggleDisabledFarm()" label="Ok" class="ui-button-secondary"></button>
+  <!-- Test Data Persist -->
+  <!-- <button pButton type="button" (click)="methodeTestDataMockPersist()" label="Test Data Persist" class="ui-button-secondary"></button> -->
+  <!-- Fin Test Data Persist -->
 </div>
-<div class="row" *ngIf="!farmDisabled">
+<div class="row mouvup" *ngIf="!farmDisabled">
   <h3 class="first">Farmer</h3>
   <input id="input" type="text" size="30" pInputText [(ngModel)]="farmername">
   <p-spinner size="9" [(ngModel)]="farmerage" [min]="0" [max]="100"></p-spinner>
@@ -12,7 +15,7 @@
   <p-radioButton name="gendergroup" value="female" label="Female" [(ngModel)]="farmergender"></p-radioButton>
   <button pButton type="button" (click)="toggleDisabledFarmer()" label="Ok" class="ui-button-secondary"></button>
 </div>
-<div class="row" *ngIf="!farmerDisabled">
+<div class="row mouvup" *ngIf="!farmerDisabled">
   <h3 class="first">Animal</h3>
   <input id="input" type="text" size="30" pInputText [(ngModel)]="animalname">
   <p-dropdown [options]="animaltype" [(ngModel)]="selectedDescription" optionLabel="description" placeholder="select animal"></p-dropdown>
@@ -24,16 +27,9 @@
   <button pButton type="button" (click)="onAddAnimalFoodPackage(); toggleDisabledFood()" label="Add Food" class="ui-button-secondary"></button>
 </div>
 
-<!-- <div class="row" *ngIf="animalAdded">
-  <p-treeTable [value]="animals">
-    <p-column field="name" header="name"></p-column>
-    <p-column field="calories" header="calories"></p-column>
-  </p-treeTable>
-</div>  -->
 
 
-
-<div class="row" *ngIf="animalAdded">
+<div class="row mouvup" *ngIf="animalAdded">
     <p-table [value]="animals">
         <ng-template pTemplate="header">
             <tr>
@@ -70,7 +66,8 @@
         </ng-template>
     </p-table>
 </div>
-
-<div class="row" class="col-md-8" *ngIf="!farmDisabled && !farmerDisabled && animalAdded">
-  <button pButton type="button" (click)="onValidateFarm(); methodeTestToDisplayResult();" label="Save" class="ui-button-secondary pull-right"></button>
+<div class="container mouvup">
+  <div class="row" class="col-md-11" *ngIf="!farmDisabled && !farmerDisabled && animalAdded">
+    <button pButton type="button" (click)="onValidateFarm(); methodeTestToDisplayResult();" label="Save" class="ui-button-secondary pull-right"></button>
+  </div>
 </div>

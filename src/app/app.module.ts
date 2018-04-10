@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 
+
 import {InputTextModule} from 'primeng/inputtext';
 import {ButtonModule} from 'primeng/button';
 import {SpinnerModule} from 'primeng/spinner';
@@ -24,6 +25,8 @@ import { FarmSearchComponent } from './farm-search/farm-search.component';
 
 /* les services du projet */
 import { FarmService } from './services/farm.service';
+import { FarmsearchService } from './services/farmsearch.service';
+
 
 const appRoutes: Routes = [
   { path: 'farm', component: FarmCreateComponent },
@@ -54,7 +57,8 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes)
   ],
   providers: [
-    FarmService
+    FarmService,
+    FarmsearchService
   ],
   bootstrap: [AppComponent]
 })
