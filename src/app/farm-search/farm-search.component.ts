@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { FarmsearchService } from '../services/farmsearch.service';
+
+import { Observable } from 'rxjs/Observable';
+import { Subject }    from 'rxjs/Subject';
+import { of }         from 'rxjs/observable/of';
+
+import {
+  debounceTime, distinctUntilChanged, switchMap
+} from 'rxjs/operators';
+
+import { FarmService } from '../services/farm.service';
 import { Router } from '@angular/router';
-import * as firebase from 'firebase';
-
-//import { Subscription } from 'rxjs/Subscription';
-
 
 
 import { Farm } from '../models/Farm.model';
@@ -24,60 +29,87 @@ import { Food } from '../models/Food.model';
 })
 export class FarmSearchComponent implements OnInit {
 
+  /** input provenant du formulaire */
   farmradiosearch: string;
 
   farmsearchbyaddress: string;
   farmsearchbyage: number;
-
-  farm: Farm;
-  farmer: Farmer;
+  /*test by farmers name*/ 
+  farmsearchbyfamername: string;
 
   farmSearched: boolean = false;
-  
-  
 
-  constructor(private farmsearchService: FarmsearchService, private router: Router){
-    this.farm = new Farm('test','35');
-  }
+  public farm: Farm;
+  public farmer: Farmer;
+  numId: number;
+
+  /***test avec une Observable */
+  farmers$: Observable<Farmer[]>;
+  private searchFarmer = new Subject<Farmer[]>();
+
+  constructor(private farmService: FarmService, private router: Router){}
 
   ngOnInit() {
   }
 
-  public toggleDisplayFarmByAddress(){
+  public toggleDisplayFarmByAddress() {
+    this.farmSearched = true;
+    this.farmService.searchFarmByAddress(this.farmsearchbyaddress).subscribe(farm => this.farm = farm[0]);
+  }
+/*
+  public toggleDisplayFarmByAge() {
+    this.farmSearched = true;
+    this.farmService.searchFarmByFarmerAge(this.farmsearchbyage).subscribe( farm => this.farm = farm[0]);
+  }
+*/
 
-    this.farm = new Farm('','');
-    this.farmer = new Farmer('',0,'');
-    this.farm.farmer = this.farmer; 
+  public getFarmerResponse(){
 
-    let addressOfFarm = this.farmsearchbyaddress.toString();
+    //test : renvoie bien un Objet Farmer 
+    //this.farmService.searchFarmByFarmerAge(this.farmsearchbyage).subscribe(res => console.log(res[0]));
+    
+    this.farmService.searchFarmByFarmerAge(this.farmsearchbyage).subscribe(res => this.farmer = res[0]);
+    
 
-    this.farmsearchService.getFarmByFarmerAddress(addressOfFarm).then(
-      (farm: Farm)=>{
-        this.farm = farm;
-        this.farmSearched = true;
-      }
-    );
+    console.log("methode getFramer");
+    console.log(this.farmer.farmid);
 
   }
-
-
 
   public toggleDisplayFarmByAge(){
 
-    this.farm = new Farm('','');
-    this.farmer = new Farmer('', '', '');
-    this.farm.farmer = this.farmer; 
-
-    let farmerAge = this.farmsearchbyage;
-    
-    this.farmsearchService.getFarmByFarmerAge(farmerAge).then(
-      (farm: Farm)=>{
-        this.farm = farm;
-        this.farmSearched = true;
-      }
-    );
-  }
   
+    //this.getFarmerResponse();
+    this.farmers$ = this.searchFarmer.pipe(
 
+        // wait 300ms after each keystroke before considering the term
+        debounceTime(100),
+
+        // ignore new term if same as previous term
+        distinctUntilChanged(),
+
+        switchMap((farmers: Farmer[]) => this.farmService.searchFarmByFarmerAge(this.farmsearchbyage)),
+
+      );
+
+      console.log('what you get from the Observable :');
+      console.log(this.farmers$.subscribe());
+      
+
+
+    this.numId = this.farmer.farmid;
+
+    this.farmService.getFarm(this.numId).subscribe(farm => this.farm = farm);
+
+    console.log('Farm Objet:');
+    console.log(this.farm);
+
+    this.farmSearched = true;
+  }
+
+  public toggleDisplayFarmByFarmerName(){
+    this.farmSearched = true;
+    this.farmService.searchFarmByFarmerName(this.farmsearchbyfamername).subscribe( farm => this.farm = farm[0]);
+  }
 
 }

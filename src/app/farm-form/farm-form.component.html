@@ -1,0 +1,18 @@
+<app-farm-create (farmEvent)="receiveFarm($event)"></app-farm-create>
+
+<app-farmer-create [farmReceived]="farm" (farmerEvent)="receiveFarmer($event)"></app-farmer-create>
+
+<app-animals-create [farmReceived]="farm" (animalsEvent)="receiveAnimalFarm($event)"></app-animals-create>
+
+
+
+
+
+<div class="container mouvup">
+  <div class="row" class="col-md-11">
+    <button pButton type="button" (click)="onValidateFarm()" label="Save" class="ui-button-secondary pull-right"></button>
+  </div>
+</div>
+
+
+

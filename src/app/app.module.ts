@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService }  from './in-memory-data.service';
 import { RouterModule, Routes } from '@angular/router';
 
 
@@ -22,30 +24,37 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FarmCreateComponent } from './farm-create/farm-create.component';
 import { FarmSearchComponent } from './farm-search/farm-search.component';
+import { FarmFormComponent } from './farm-form/farm-form.component';
 
 /* les services du projet */
 import { FarmService } from './services/farm.service';
-import { FarmsearchService } from './services/farmsearch.service';
+import { MessageService } from './services/message.service';
+import { MessagesComponent } from './messages/messages.component';
+import { AppRoutingModule } from './app-routing.module';
+import { FarmerCreateComponent } from './farmer-create/farmer-create.component';
+import { AnimalsCreateComponent } from './animals-create/animals-create.component';
+import { AnimalsDisplayComponent } from './animals-display/animals-display.component';
+// import { FarmsearchService } from './services/farmsearch.service';
 
-
-const appRoutes: Routes = [
-  { path: 'farm', component: FarmCreateComponent },
-  { path: 'farm/search', component: FarmSearchComponent },
-  { path: '', component: FarmCreateComponent }
-];
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FarmCreateComponent,
-    FarmSearchComponent
+    FarmSearchComponent,
+    MessagesComponent,
+    FarmerCreateComponent,
+    AnimalsCreateComponent,
+    AnimalsDisplayComponent,
+    FarmFormComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: false }),
     InputTextModule,
     ButtonModule,
     SpinnerModule,
@@ -54,11 +63,11 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     TreeTableModule,
     TableModule,
-    RouterModule.forRoot(appRoutes)
+    AppRoutingModule
   ],
   providers: [
     FarmService,
-    FarmsearchService
+    MessageService
   ],
   bootstrap: [AppComponent]
 })

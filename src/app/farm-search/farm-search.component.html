@@ -5,22 +5,27 @@
       <p-radioButton name="farmgroup" value="age" label="Farmer Age" [(ngModel)]="farmradiosearch"></p-radioButton>
     </div>
     <div class="row mouvup" *ngIf="farmradiosearch === 'address' ">
-      <input id="input" type="text" size="30" pInputText [(ngModel)]="farmsearchbyaddress">
+    <input id="input" type="text" size="30" pInputText [(ngModel)]="farmsearchbyaddress">
       <button pButton type="button" (click)="toggleDisplayFarmByAddress()" label="Search By Address" class="ui-button-secondary"></button>
     </div>
     <div class="row mouvup" *ngIf="farmradiosearch === 'age' ">
         <input id="input" type="number" size="30" pInputText [(ngModel)]="farmsearchbyage">
+        <button pButton type="button" (click)="getFarmerResponse()" label="Get Farmer of Farm" class="ui-button-secondary"></button>
         <button pButton type="button" (click)="toggleDisplayFarmByAge()" label="Search By Age" class="ui-button-secondary"></button>
     </div>
+<!--     <div class="row mouvup" *ngIf="farmradiosearch === 'age' ">
+        <input id="input" type="text" size="30" pInputText [(ngModel)]="farmsearchbyfamername">
+        <button pButton type="button" (click)="toggleDisplayFarmByFarmerName()" label="Search By Name" class="ui-button-secondary"></button>
+    </div> -->
 </div>
-
 
 <div class="row" *ngIf="farmSearched">
     <h3>Farm Information</h3>
     <div class="list-group col-md-6">
         <a href="#" class="list-group-item">
           <h6 class="list-group-item-heading">Farm Information</h6>
-          <p class="list-group-item-text">farm's name : {{ farm.name }}</p>
+          <p class="list-group-item-text">farm's name : {{ farm.name }}
+          </p>
           <p class="list-group-item-text">farm's address : {{ farm.address }}</p>
         </a>
     </div>

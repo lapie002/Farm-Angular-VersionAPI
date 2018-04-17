@@ -2,10 +2,13 @@ import { Farmer } from './Farmer.model';
 import { Animal } from './Animal.model';
 
 export class Farm{
-
+  
+  id: number;
   farmer: Farmer;
   animalfarm: Array<Animal>;
-
-  constructor(public name, public address){}
+  name: string;
+  address: string;
+  
+  constructor(){}
 
 }

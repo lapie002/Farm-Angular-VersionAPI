@@ -1,0 +1,22 @@
+<div class="row mouvup" *ngIf="!farmerDisabled">
+  <h3 class="first">Animal</h3>
+  <input id="input" type="text" size="30" pInputText [(ngModel)]="animalname">
+  <p-dropdown [options]="animaltype" [(ngModel)]="selectedDescription" optionLabel="description" placeholder="select animal"></p-dropdown>
+  <button pButton type="button" (click)="toggleDisabledAnimal(); onAddAnimal()" [disabled]="animalDisabled" label="Add Animal" class="ui-button-secondary"></button>
+  <button pButton type="button" (click)="sendAnimals()" label="ok" class="ui-button-secondary"></button>
+
+
+  <h3 class="first">Food for {{ animalname }}</h3>
+  <p-dropdown [options]="foodtype" [(ngModel)]="selectedFood" optionLabel="description" placeholder="type"></p-dropdown>
+  <p-spinner size="10" [(ngModel)]="foodQte" [min]="0" [max]="10" placeholder="quantity"></p-spinner>
+  <button pButton type="button" (click)="onAddAnimalFoodPackage(); toggleDisabledFood()" label="Add Food" class="ui-button-secondary"></button>
+</div>
+
+<app-animals-display [animals]="animalsArray"></app-animals-display>
+
+<!-- <div class="container mouvup">
+  <div class="row" class="col-md-11" *ngIf="!farmDisabled && !farmerDisabled && animalAdded">
+    <button pButton type="button" (click)="onValidateFarm()" label="Save" class="ui-button-secondary pull-right"></button>
+  </div>
+</div> -->
+

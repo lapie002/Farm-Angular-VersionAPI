@@ -1,5 +1,10 @@
 export class Farmer{
 
-  constructor(public name, public age, public gender){}
+  farmid: number;
+  name: string;
+  age: number;
+  gender: string;
+
+  constructor(){}
 
 }
